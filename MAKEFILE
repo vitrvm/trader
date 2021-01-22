@@ -1,0 +1,24 @@
+# develop
+run_dev:
+	docker-compose -f docker-compose-dev.yml up --build
+	exit 0
+
+createsuperuser:
+docker-compose -f docker-compose-dev.yml run --rm web python manage.py createsuperuser
+
+#all about production
+gen_static:
+	docker-compose -f docker-compose-dev.yml run enoch-api python manage.py collectstatic --no-input
+	exit 0
+
+makemigration:
+	docker-compose -f docker-compose-dev.yml run enoch-api python manage.py makemigrations
+	exit 0
+
+migrate:
+	docker-compose -f docker-compose-dev.yml run enoch-api python manage.py migrate
+	exit 0
+
+run_prod:
+	docker-compose -f docker-compose-dev.yml enoch-api build
+	docker-compose -f docker-compose-dev.yml enoch-api up -d
