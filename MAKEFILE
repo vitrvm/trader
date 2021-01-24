@@ -6,6 +6,9 @@ run_dev:
 createsuperuser:
 docker-compose -f docker-compose-dev.yml run --rm web python manage.py createsuperuser
 
+create app:
+docker-compose -f ../docker-compose-dev.yml run --rm web python manage.py startapp igstream
+
 #all about production
 gen_static:
 	docker-compose -f docker-compose-dev.yml run enoch-api python manage.py collectstatic --no-input
